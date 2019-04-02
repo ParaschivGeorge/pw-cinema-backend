@@ -26,8 +26,8 @@ let login =  async (req, res) => {
 
         const currentDate = new Date().setHours(0,0,0,0)
         if (!user.loggedInDays.find(d => d.getTime() === currentDate)) {
-            user.loggedInDays.push(date)
-            await user.save()   
+            user.loggedInDays.push(currentDate)
+            await user.save()
         }
         res.status(200).send(token)
     } catch (e) {
