@@ -29,7 +29,7 @@ let login =  async (req, res) => {
             user.loggedInDays.push(currentDate)
             await user.save()
         }
-        res.status(200).send(token)
+        res.status(200).json(token)
     } catch (e) {
         res.status(400).send(e)
     }
