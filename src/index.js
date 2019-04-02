@@ -11,7 +11,7 @@ var io = require('socket.io')(server);
 const port = process.env.PORT || 3000;
 
 // db connection string
-dbSetUp.connectToDb('mongodb+srv://parageo:mysterydb123!@pw-cinema-87nhm.gcp.mongodb.net/pw-cinema-db?retryWrites=true') 
+dbSetUp.connectToDb(process.env.DB_CONNECTION_STRING) 
 
 app.use(cors()) // cors
 app.use(express.json())
