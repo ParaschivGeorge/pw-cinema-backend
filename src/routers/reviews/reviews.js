@@ -4,7 +4,7 @@ let createReview = async (req, res, next) => {
     
     const review = new Review(req.body)
     try {
-        dbReview = await Review.findOne( {title: review.title} )
+        dbReview = await Review.findOne( {user: review.user, movie: review.movie} )
         if (dbReview) { 
             let err = new Error('this is review already exists')
             err.statusCode = 400;
@@ -65,7 +65,7 @@ let updateReview = async (req, res) => {
 
 let deleteReview = async (req, res) => {
     try {
-        const review = await Review.findOneAndDelete({ _id: req.params.id })
+        const review = await Review.remove({ _id: req.params.id }).exec()
 
         if (!review) {
             res.status(404).send()

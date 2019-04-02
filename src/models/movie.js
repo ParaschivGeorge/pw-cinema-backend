@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Review = require('./review')
 
 const movieSchema = new mongoose.Schema({
     releaseDate: {
@@ -33,6 +34,15 @@ movieSchema.virtual('reviews', {
     ref: 'Review',
     localField: '_id',
     foreignField: 'movie'
+})
+
+// Delete movie reviews when movie is removed
+movieSchema.pre('remove', async function (next) {
+    const movie = this
+    console.log('pula')
+    review = await Review.deleteMany({ movie: movie._id })
+    console.log(review)
+    next()
 })
 
 const Movie = mongoose.model('Movie', movieSchema)

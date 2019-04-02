@@ -61,7 +61,8 @@ let updateMovie = async (req, res) => {
 
 let deleteMovie = async (req, res) => {
     try {
-        const movie = await Movie.findOneAndDelete({ _id: req.params.id })
+        const movie = await Movie.remove({ _id: req.params.id }).exec()
+        console.log(movie)
 
         if (!movie) {
             res.status(404).send()

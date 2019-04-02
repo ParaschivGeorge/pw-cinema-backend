@@ -2,6 +2,7 @@ const mongoose = require('mongoose')
 const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const Review = require('./review')
 
 const userSchema = new mongoose.Schema({
     firstName: {
@@ -93,6 +94,13 @@ userSchema.pre('save', async function (next) {
 
     next()
     // call to execute the save to db
+})
+
+// Delete user reviews when user is removed
+userSchema.pre('remove', async function (next) {
+    const user = this
+    await Review.deleteMany({ user: user._id })
+    next()
 })
 
 const User = mongoose.model('User', userSchema)
