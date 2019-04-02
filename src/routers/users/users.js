@@ -43,7 +43,7 @@ let updateUser = async (req, res) => {
 
 let deleteUser = async (req, res) => {
     try {
-        const user = await User.remove({ _id: req.params.id }).exec()
+        const user = await User.deleteOne({ _id: req.params.id })
 
         if (!user) {
             res.status(404).send()

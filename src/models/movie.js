@@ -37,11 +37,9 @@ movieSchema.virtual('reviews', {
 })
 
 // Delete movie reviews when movie is removed
-movieSchema.pre('remove', async function (next) {
+movieSchema.pre('deleteOne', async function (next) {
     const movie = this
-    console.log('pula')
-    review = await Review.deleteMany({ movie: movie._id })
-    console.log(review)
+    review = await Review.deleteMany({ movie: movie._conditions._id })
     next()
 })
 

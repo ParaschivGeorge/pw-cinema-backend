@@ -97,9 +97,9 @@ userSchema.pre('save', async function (next) {
 })
 
 // Delete user reviews when user is removed
-userSchema.pre('remove', async function (next) {
+userSchema.pre('deleteOne', async function (next) {
     const user = this
-    await Review.deleteMany({ user: user._id })
+    await Review.deleteMany({ user: user._conditions._id })
     next()
 })
 
