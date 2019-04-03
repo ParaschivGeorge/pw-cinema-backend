@@ -25,4 +25,8 @@ server.listen(port, () => {
 io.on('connection', (socket) => {
     console.log('connection severed on socket:', socket.id)
     socket.broadcast.emit('noUsers', io.engine.clientsCount)
+
+    socket.on('disconnect', function() {
+        socket.broadcast.emit('noUsers', io.engine.clientsCount)
+     });
 })
